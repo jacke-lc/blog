@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-surface text-brand font-sans antialiased;
+  margin: 0;
+  min-height: 100vh;
+  background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 32%);
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+::selection {
+  background: rgba(245, 245, 245, 0.2);
+  color: #ffffff;
+}
+
+.prose-shell {
+  @apply text-base leading-8 text-zinc-300;
+}
+
+.prose-shell h1,
+.prose-shell h2,
+.prose-shell h3,
+.prose-shell h4 {
+  @apply text-brand font-semibold tracking-tight;
+}
+
+.prose-shell a {
+  @apply text-white underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300;
+}
+
+.prose-shell p,
+.prose-shell ul,
+.prose-shell ol,
+.prose-shell blockquote,
+.prose-shell pre {
+  @apply my-6;
+}
+
+.prose-shell code {
+  @apply rounded bg-zinc-900 px-1.5 py-0.5 text-sm text-zinc-100;
+}

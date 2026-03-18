@@ -1,0 +1,25 @@
+---
+import Container from '@/components/common/Container.astro';
+import SectionTitle from '@/components/common/SectionTitle.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getAllPosts } from '@/lib/posts';
+
+const posts = await getAllPosts();
+---
+
+<BaseLayout title="博客 | Your Name" description="文章列表，聚合前端工程、个人品牌与内容表达。">
+  <section class="py-16 sm:py-24">
+    <Container>
+      <SectionTitle
+        eyebrow="Blog"
+        title="博客文章"
+        description="这里收录长期写作内容，保持 Markdown 驱动、结构稳定、阅读体验简洁。"
+      />
+
+      <div class="mt-12 grid gap-6">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

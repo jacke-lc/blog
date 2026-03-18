@@ -1,0 +1,91 @@
+---
+import Container from '@/components/common/Container.astro';
+import SectionTitle from '@/components/common/SectionTitle.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getFeaturedPosts } from '@/lib/posts';
+import { siteConfig } from '@/lib/site';
+
+const featuredPosts = await getFeaturedPosts(2);
+---
+
+<BaseLayout title={siteConfig.title} description={siteConfig.description}>
+  <section class="border-b border-white/5 py-20 sm:py-28">
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+        <div>
+          <p class="text-xs uppercase tracking-[0.32em] text-muted">Personal Brand Site</p>
+          <h1 class="mt-6 max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            以博客沉淀专业表达，建立清晰、克制的个人品牌。
+          </h1>
+          <p class="mt-8 max-w-2xl text-base leading-8 text-zinc-400 sm:text-lg">
+            我专注于前端工程、体验设计与内容表达，用稳定的结构和简洁的视觉，把个人网站打造成长期可维护的品牌阵地。
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-6 sm:p-8">
+          <p class="text-sm uppercase tracking-[0.24em] text-muted">Positioning</p>
+          <p class="mt-4 text-2xl font-medium tracking-tight text-white">Frontend Engineer / Writer / Personal Brand Builder</p>
+          <p class="mt-4 text-sm leading-7 text-zinc-400">
+            这个网站将承载文章、经验、能力展示与合作入口，先以静态博客为核心，逐步扩展完整个人官网能力。
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-20">
+    <Container>
+      <SectionTitle
+        eyebrow="Featured Posts"
+        title="推荐文章"
+        description="先建立稳定的文章列表与详情结构，后续你只需要专注写 Markdown。"
+      />
+
+      <div class="mt-12 grid gap-6 lg:grid-cols-2">
+        {featuredPosts.map((post) => <PostCard post={post} />)}
+      </div>
+    </Container>
+  </section>
+
+  <section class="border-y border-white/5 py-20">
+    <Container>
+      <SectionTitle
+        eyebrow="Capabilities"
+        title="能力与服务方向"
+        description="整体风格保持高级、克制、响应式友好，适合长期作为个人品牌官网使用。"
+      />
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-6">
+          <h3 class="text-xl font-semibold text-white">前端工程</h3>
+          <p class="mt-4 text-sm leading-7 text-zinc-400">专注于清晰架构、组件复用、性能和可维护性。</p>
+        </div>
+        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-6">
+          <h3 class="text-xl font-semibold text-white">内容沉淀</h3>
+          <p class="mt-4 text-sm leading-7 text-zinc-400">通过博客把经验、方法论和观点持续积累成资产。</p>
+        </div>
+        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-6">
+          <h3 class="text-xl font-semibold text-white">品牌展示</h3>
+          <p class="mt-4 text-sm leading-7 text-zinc-400">围绕专业感与可信度，塑造统一、长期可演进的个人形象。</p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="py-20 sm:py-24">
+    <Container>
+      <div class="rounded-[2rem] border border-white/8 bg-white/[0.03] px-8 py-10 sm:px-10 sm:py-12">
+        <p class="text-xs uppercase tracking-[0.3em] text-muted">Contact</p>
+        <h2 class="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">如果你希望这个博客继续扩展成完整个人官网，我们可以继续往下搭。</h2>
+        <p class="mt-5 max-w-2xl text-base leading-8 text-zinc-400">
+          目前基础骨架已经具备：首页、博客、关于我、联系方式都可以逐步填充真实内容。
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="/blog" class="rounded-full border border-white/10 px-5 py-3 text-sm text-white hover:bg-white/5">查看博客</a>
+          <a href="/contact" class="rounded-full border border-white/10 px-5 py-3 text-sm text-zinc-300 hover:bg-white/5 hover:text-white">联系我</a>
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

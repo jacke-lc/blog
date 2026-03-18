@@ -1,0 +1,22 @@
+---
+interface Props {
+  date: Date;
+  tags?: string[];
+}
+
+const { date, tags = [] } = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}).format(date);
+---
+
+<div class="flex flex-wrap items-center gap-3 text-sm text-zinc-500">
+  <time datetime={date.toISOString()}>{formattedDate}</time>
+  {tags.length > 0 && <span class="text-zinc-700">/</span>}
+  {tags.map((tag) => (
+    <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300">{tag}</span>
+  ))}
+</div>

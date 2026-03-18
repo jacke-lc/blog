@@ -1,0 +1,30 @@
+---
+import SeoHead from '@/components/common/SeoHead.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import '@/styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <SeoHead title={title} description={description} image={image} />
+  </head>
+  <body class="min-h-screen bg-surface text-brand">
+    <div class="relative flex min-h-screen flex-col">
+      <Header currentPath={Astro.url.pathname} />
+      <main class="flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
