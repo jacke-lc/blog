@@ -1,0 +1,52 @@
+name: Deploy Astro Blog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Prepare remote upload directory
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "mkdir -p /home/${{ secrets.SERVER_USER }}/blog-dist"
+
+      - name: Upload dist to server
+        run: |
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_ed25519" dist/ ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:/home/${{ secrets.SERVER_USER }}/blog-dist/
+
+      - name: Deploy on server
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} '
+            sudo mkdir -p /var/www/blog &&
+            sudo rm -rf /var/www/blog/* &&
+            sudo cp -r /home/${{ secrets.SERVER_USER }}/blog-dist/* /var/www/blog/ &&
+            sudo chown -R www-data:www-data /var/www/blog &&
+            sudo find /var/www/blog -type d -exec chmod 755 {} \; &&
+            sudo find /var/www/blog -type f -exec chmod 644 {} \; &&
+            sudo systemctl reload nginx
+          '
