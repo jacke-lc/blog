@@ -7,6 +7,7 @@ interface Props {
     data: {
       title: string;
       description: string;
+      category: string;
       pubDate: Date;
       tags?: string[];
       featured?: boolean;
@@ -28,6 +29,6 @@ const { post } = Astro.props;
   </div>
   <p class="relative mt-4 text-sm leading-7 text-zinc-400">{post.data.description}</p>
   <div class="relative mt-6">
-    <PostMeta date={post.data.pubDate} tags={post.data.tags} />
+    <PostMeta date={post.data.pubDate} category={post.data.category} tags={post.data.tags} />
   </div>
 </article>

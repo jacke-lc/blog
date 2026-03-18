@@ -1,10 +1,11 @@
 export const siteConfig = {
-  name: 'Your Name',
-  title: 'Your Name · Frontend Engineer',
-  description: '一个简洁、专业、适合长期维护的个人品牌博客网站。',
+  name: 'jacke',
+  title: 'jacke · 安全运营与 AI 人工智能',
+  description: '一个聚焦安全运营与 AI 人工智能主题的简洁个人博客。',
   siteUrl: import.meta.env.SITE_URL || 'https://example.com',
   locale: 'zh-CN',
-  email: 'hello@example.com',
+  email: '',
+  topics: ['安全运营', 'AI人工智能'],
   nav: [
     { label: '首页', href: '/' },
     { label: '博客', href: '/blog' },
@@ -12,9 +13,7 @@ export const siteConfig = {
     { label: '联系方式', href: '/contact' }
   ],
   socialLinks: [
-    { label: 'GitHub', href: 'https://github.com/' },
-    { label: 'X', href: 'https://x.com/' },
-    { label: 'Email', href: 'mailto:hello@example.com' }
+    { label: 'GitHub', href: 'https://github.com/' }
   ]
 };
 

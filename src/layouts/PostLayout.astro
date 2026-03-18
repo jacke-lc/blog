@@ -7,10 +7,11 @@ interface Props {
   title: string;
   description: string;
   pubDate: Date;
+  category?: string;
   tags?: string[];
 }
 
-const { title, description, pubDate, tags = [] } = Astro.props;
+const { title, description, pubDate, category, tags = [] } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | 博客`} description={description}>
@@ -20,7 +21,7 @@ const { title, description, pubDate, tags = [] } = Astro.props;
       <h1 class="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h1>
       <p class="mt-6 text-lg leading-8 text-zinc-400">{description}</p>
       <div class="mt-8 border-t border-white/8 pt-6">
-        <PostMeta date={pubDate} tags={tags} />
+        <PostMeta date={pubDate} category={category} tags={tags} />
       </div>
 
       <div class="prose-shell mt-12">
