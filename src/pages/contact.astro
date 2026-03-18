@@ -2,39 +2,19 @@
 import Container from '@/components/common/Container.astro';
 import SectionTitle from '@/components/common/SectionTitle.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { siteConfig } from '@/lib/site';
 ---
 
-<BaseLayout title="联系方式 | Your Name" description="联系我，讨论写作、前端项目与个人品牌网站搭建。">
+<BaseLayout title="联系方式 | jacke" description="联系方式页面暂时留空。">
   <section class="py-16 sm:py-24">
     <Container>
       <SectionTitle
         eyebrow="Contact"
         title="联系方式"
-        description="先保留一个简洁直接的联系入口，后续可以扩展社交媒体、微信或合作说明。"
+        description="暂时留空，后续再补充。"
       />
 
-      <div class="mt-12 grid gap-6 md:grid-cols-2">
-        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-8">
-          <p class="text-xs uppercase tracking-[0.28em] text-muted">Email</p>
-          <a href={`mailto:${siteConfig.email}`} class="mt-4 inline-block text-2xl font-semibold tracking-tight text-white hover:text-zinc-300">
-            {siteConfig.email}
-          </a>
-          <p class="mt-5 text-sm leading-8 text-zinc-400">
-            适合项目合作、交流想法、网站定制与内容沟通。
-          </p>
-        </div>
-
-        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-8">
-          <p class="text-xs uppercase tracking-[0.28em] text-muted">Social</p>
-          <div class="mt-6 space-y-4">
-            {siteConfig.socialLinks.map((link) => (
-              <a href={link.href} class="block text-base text-zinc-300 hover:text-white" target={link.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
+      <div class="mt-12 rounded-3xl border border-white/8 bg-white/[0.03] p-8 text-sm leading-8 text-zinc-400">
+        暂无内容。
       </div>
     </Container>
   </section>

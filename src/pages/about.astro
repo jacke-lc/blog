@@ -3,39 +3,19 @@ import Container from '@/components/common/Container.astro';
 import SectionTitle from '@/components/common/SectionTitle.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const items = [
-  '专注TEST工程与界面体验，重视结构、性能与长期维护。',
-  '习惯通过写作沉淀方法论，把经验转换为可复用资产。',
-  '希望这个站点既是博客，也是专业形象与合作入口。'
-];
 ---
 
-<BaseLayout title="关于我 | Your Name" description="关于我、我的经历、能力与专业定位。">
+<BaseLayout title="关于我 | jacke" description="关于我页面暂时留空。">
   <section class="py-16 sm:py-24">
     <Container>
       <SectionTitle
         eyebrow="About"
         title="关于我"
-        description="这一页会逐步补充你的个人经历、能力地图、做事方式与职业方向。"
+        description="暂时留空，后续再补充。"
       />
 
-      <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_1.2fr]">
-        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-8">
-          <p class="text-xs uppercase tracking-[0.28em] text-muted">Profile</p>
-          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-white">前端工程师，关注内容与品牌表达。</h2>
-          <p class="mt-6 text-sm leading-8 text-zinc-400">
-            这里后续可以放你的简介、工作年限、领域标签、代表项目和核心价值观。
-          </p>
-        </div>
-
-        <div class="rounded-3xl border border-white/8 bg-white/[0.03] p-8">
-          <p class="text-xs uppercase tracking-[0.28em] text-muted">Highlights</p>
-          <div class="mt-6 space-y-5">
-            {items.map((item) => (
-              <div class="border-b border-white/6 pb-5 text-sm leading-8 text-zinc-300 last:border-b-0 last:pb-0">{item}</div>
-            ))}
-          </div>
-        </div>
+      <div class="mt-12 rounded-3xl border border-white/8 bg-white/[0.03] p-8 text-sm leading-8 text-zinc-400">
+        暂无内容。
       </div>
     </Container>
   </section>
