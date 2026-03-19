@@ -2,11 +2,13 @@
 import Container from '@/components/common/Container.astro';
 import SectionTitle from '@/components/common/SectionTitle.astro';
 import PostCard from '@/components/blog/PostCard.astro';
+import TagCloud from '@/components/blog/TagCloud.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts, getTagStats } from '@/lib/posts';
 import { siteConfig } from '@/lib/site';
 
 const posts = await getAllPosts();
+const tagStats = await getTagStats();
 ---
 
 <BaseLayout title="博客 | jacke" description="文章列表，聚合安全运营与 AI 人工智能主题内容。">
@@ -15,8 +17,12 @@ const posts = await getAllPosts();
       <SectionTitle
         eyebrow="Blog"
         title="博客文章"
-        description={`这里收录长期写作内容，当前主要分类为：${siteConfig.topics.join('、')}。`}
+        description={`这里收录长期写作内容，核心方向为：${siteConfig.coreCategories.join('、')}。`}
       />
+
+      <div class="mt-10 panel p-6 sm:p-8">
+        <TagCloud items={tagStats} />
+      </div>
 
       <div class="mt-12 grid gap-6">
         {posts.map((post) => <PostCard post={post} />)}

@@ -1,0 +1,34 @@
+---
+import { siteConfig } from '@/lib/site';
+
+const namespace = siteConfig.counter.namespace;
+const key = siteConfig.counter.key;
+---
+
+<div class="fixed bottom-4 left-4 z-50 rounded-2xl border border-cyan-400/15 bg-black/70 px-4 py-3 shadow-soft backdrop-blur-xl sm:bottom-6 sm:left-6">
+  <p class="text-[10px] uppercase tracking-[0.28em] text-zinc-500">Site Visits</p>
+  <div class="mt-1 flex items-end gap-2">
+    <span id="site-visit-count" class="text-xl font-semibold tracking-tight text-white">--</span>
+    <span class="text-xs text-zinc-500">累计访问</span>
+  </div>
+</div>
+
+<script is:inline define:vars={{ namespace, key }}>
+  const visitElement = document.getElementById('site-visit-count');
+
+  const updateVisits = async () => {
+    try {
+      const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+      const data = await response.json();
+      if (visitElement && typeof data.value === 'number') {
+        visitElement.textContent = new Intl.NumberFormat('zh-CN').format(data.value);
+      }
+    } catch (error) {
+      if (visitElement) {
+        visitElement.textContent = '--';
+      }
+    }
+  };
+
+  updateVisits();
+</script>

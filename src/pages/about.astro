@@ -1,21 +1,41 @@
 ---
 import Container from '@/components/common/Container.astro';
+import TagBadge from '@/components/common/TagBadge.astro';
 import SectionTitle from '@/components/common/SectionTitle.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/lib/site';
 
 ---
 
-<BaseLayout title="关于我 | jacke" description="关于我页面暂时留空。">
+<BaseLayout title="关于我 | jacke" description="jacke 的个人介绍、研究方向与标签。">
   <section class="py-16 sm:py-24">
     <Container>
       <SectionTitle
         eyebrow="About"
         title="关于我"
-        description="暂时留空，后续再补充。"
+        description="一个致力于网络安全、数据保护、人工智能的知识分享者。"
       />
 
-      <div class="mt-12 rounded-3xl border border-white/8 bg-white/[0.03] p-8 text-sm leading-8 text-zinc-400">
-        暂无内容。
+      <div class="mt-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="panel p-8">
+          <p class="text-xs uppercase tracking-[0.28em] text-cyan-300/80">Profile</p>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-white">{siteConfig.role}</h2>
+          <p class="mt-5 text-sm leading-8 text-zinc-400">
+            主要围绕网络安全、数据安全、安全运营和人工智能相关内容进行学习、记录与分享。
+          </p>
+        </div>
+
+        <div class="panel p-8">
+          <p class="text-xs uppercase tracking-[0.28em] text-cyan-300/80">Labels</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            {siteConfig.profileLabels.map((label) => <TagBadge tag={label} large />)}
+          </div>
+          <div class="mt-8 space-y-4 text-sm leading-8 text-zinc-400">
+            <p>关注方向：网络安全、数据安全、安全运营、人工智能。</p>
+            <p>内容形式：实战复盘、方法总结、工具实践、阶段性研究笔记。</p>
+            <p>写作目标：将零散经验整理成长期可检索、可复用、可持续迭代的内容资产。</p>
+          </div>
+        </div>
       </div>
     </Container>
   </section>

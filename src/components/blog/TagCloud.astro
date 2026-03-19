@@ -1,0 +1,19 @@
+---
+import TagBadge from '@/components/common/TagBadge.astro';
+
+interface Item {
+  tag: string;
+  count: number;
+}
+
+interface Props {
+  items: Item[];
+  large?: boolean;
+}
+
+const { items, large = false } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-3">
+  {items.map((item) => <TagBadge tag={item.tag} count={item.count} large={large} />)}
+</div>
