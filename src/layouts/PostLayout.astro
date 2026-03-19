@@ -1,7 +1,13 @@
 ---
-import Container from '@/components/common/Container.astro';
 import PostMeta from '@/components/blog/PostMeta.astro';
+import TableOfContents from '@/components/blog/TableOfContents.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface HeadingItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
 
 interface Props {
   title: string;
@@ -9,24 +15,29 @@ interface Props {
   pubDate: Date;
   category?: string;
   tags?: string[];
+  headings?: HeadingItem[];
 }
 
-const { title, description, pubDate, category, tags = [] } = Astro.props;
+const { title, description, pubDate, category, tags = [], headings = [] } = Astro.props;
 ---
 
 <BaseLayout title={`${title} | 博客`} description={description}>
-  <Container as="article" class="py-16 sm:py-24">
-    <div class="panel mx-auto max-w-4xl px-6 py-8 sm:px-10 sm:py-12">
-      <p class="text-xs uppercase tracking-[0.28em] text-cyan-300/80">Article</p>
-      <h1 class="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h1>
-      <p class="mt-6 text-lg leading-8 text-zinc-400">{description}</p>
-      <div class="mt-8 border-t border-white/8 pt-6">
-        <PostMeta date={pubDate} category={category} tags={tags} />
-      </div>
+  <article class="mx-auto w-full max-w-[136rem] px-6 py-16 sm:px-8 sm:py-24">
+    <div class="mx-auto max-w-[136rem]">
+      <TableOfContents headings={headings} />
 
-      <div class="prose-shell mt-12">
-        <slot />
+      <div class="panel min-w-0 max-w-none px-6 py-8 sm:px-10 sm:py-12 xl:ml-[20rem] xl:w-[calc(100%-20rem-1rem)] 2xl:ml-[21rem] 2xl:w-[calc(100%-21rem-0.5rem)]">
+        <p class="text-xs uppercase tracking-[0.28em] text-cyan-300/80">Article</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{title}</h1>
+        <p class="mt-6 text-lg leading-8 text-zinc-400">{description}</p>
+        <div class="mt-8 border-t border-white/8 pt-6">
+          <PostMeta date={pubDate} category={category} tags={tags} />
+        </div>
+
+        <div class="prose-shell mt-12">
+          <slot />
+        </div>
       </div>
     </div>
-  </Container>
+  </article>
 </BaseLayout>

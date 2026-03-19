@@ -1,0 +1,135 @@
+---
+interface HeadingItem {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: HeadingItem[];
+}
+
+const { headings = [] } = Astro.props;
+const tocItems = headings.filter((item) => item.depth >= 2 && item.depth <= 3);
+---
+
+{tocItems.length > 0 && (
+  <aside class="hidden xl:block">
+    <div class="fixed top-28 left-[max(1.75rem,calc((100vw-136rem)/2+1rem))] z-30 w-56 rounded-[1.5rem] bg-black/22 p-5 shadow-[0_12px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl ring-1 ring-white/5">
+      <p class="text-xs uppercase tracking-[0.26em] text-cyan-300/80">目录</p>
+      <nav class="mt-5">
+        <ol class="max-h-[calc(100vh-9rem)] space-y-2 overflow-y-auto pr-1">
+          {tocItems.map((item) => (
+            <li>
+              <a
+                href={`#${item.slug}`}
+                data-toc-link
+                data-toc-slug={item.slug}
+                data-active="false"
+                class:list={[
+                  'toc-link block rounded-xl px-3 py-2 text-sm leading-6 text-zinc-500',
+                  item.depth === 3 && 'ml-4 text-xs'
+                ]}
+              >
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </aside>
+)}
+
+{tocItems.length > 0 && (
+  <script is:inline>
+    (() => {
+      const initToc = () => {
+        const links = Array.from(document.querySelectorAll('[data-toc-link]'));
+        let activeSlug = '';
+
+        const headingItems = links
+          .map((link) => {
+            const slug = link.getAttribute('data-toc-slug');
+            if (!slug) return null;
+            const heading = document.getElementById(slug);
+            if (!heading) return null;
+            return { slug, link, heading };
+          })
+          .filter(Boolean);
+
+        if (headingItems.length === 0) return;
+
+        const updateActive = (nextSlug) => {
+          if (!nextSlug || nextSlug === activeSlug) return;
+          activeSlug = nextSlug;
+
+          links.forEach((link) => {
+            const isActive = link.getAttribute('data-toc-slug') === nextSlug;
+            link.setAttribute('data-active', isActive ? 'true' : 'false');
+
+            if (isActive) {
+              link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+          });
+        };
+
+        const getCurrentHeading = () => {
+          const activationLine = Math.max(150, window.innerHeight * 0.28);
+
+          if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24) {
+            return headingItems[headingItems.length - 1].slug;
+          }
+
+          let currentSlug = headingItems[0].slug;
+
+          for (const item of headingItems) {
+            const rect = item.heading.getBoundingClientRect();
+
+            if (rect.top <= activationLine) {
+              currentSlug = item.slug;
+            } else {
+              break;
+            }
+          }
+
+          return currentSlug;
+        };
+
+        let ticking = false;
+        const syncActiveHeading = () => {
+          updateActive(getCurrentHeading());
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+
+          ticking = true;
+          window.requestAnimationFrame(() => {
+            syncActiveHeading();
+            ticking = false;
+          });
+        };
+
+        syncActiveHeading();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+
+        links.forEach((link) => {
+          link.addEventListener('click', () => {
+            const slug = link.getAttribute('data-toc-slug');
+            if (slug) {
+              updateActive(slug);
+            }
+          });
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initToc, { once: true });
+      } else {
+        initToc();
+      }
+    })();
+  </script>
+)}

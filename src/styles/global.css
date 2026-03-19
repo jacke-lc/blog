@@ -53,8 +53,41 @@ body::before {
   @apply rounded-[2rem] border border-white/10 bg-white/[0.05] shadow-soft backdrop-blur-xl;
 }
 
+.toc-link {
+  color: rgb(113 113 122);
+  border: 1px solid transparent;
+  background: transparent;
+  transition:
+    color 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease,
+    box-shadow 260ms ease;
+}
+
+.toc-link:hover {
+  color: rgb(255 255 255);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.toc-link[data-active='true'] {
+  color: rgb(240 249 255);
+  background: rgba(34, 211, 238, 0.10);
+  border-color: rgba(34, 211, 238, 0.16);
+  box-shadow: inset 2px 0 0 rgba(103, 232, 249, 0.95);
+  transform: translateX(2px);
+}
+
+.toc-link[data-active='false'] {
+  color: rgb(113 113 122);
+}
+
 .prose-shell {
   @apply text-base leading-8 text-zinc-300;
+}
+
+.prose-shell > :first-child {
+  margin-top: 0;
 }
 
 .prose-shell h1,
@@ -64,8 +97,28 @@ body::before {
   @apply text-brand font-semibold tracking-tight;
 }
 
+.prose-shell h1 {
+  @apply mt-10 text-3xl sm:text-4xl;
+}
+
+.prose-shell h2 {
+  @apply mt-12 scroll-mt-28 border-t border-white/10 pt-8 text-2xl sm:text-3xl;
+}
+
+.prose-shell h3 {
+  @apply mt-10 scroll-mt-28 text-xl sm:text-2xl;
+}
+
+.prose-shell h4 {
+  @apply mt-8 scroll-mt-28 text-lg;
+}
+
 .prose-shell a {
   @apply text-white underline decoration-zinc-600 underline-offset-4 hover:decoration-zinc-300;
+}
+
+.prose-shell strong {
+  @apply font-semibold text-white;
 }
 
 .prose-shell p,
@@ -76,8 +129,32 @@ body::before {
   @apply my-6;
 }
 
+.prose-shell ul {
+  @apply list-disc pl-6;
+}
+
+.prose-shell ol {
+  @apply list-decimal pl-6;
+}
+
+.prose-shell li {
+  @apply my-2 pl-1;
+}
+
+.prose-shell li::marker {
+  @apply text-cyan-300;
+}
+
+.prose-shell hr {
+  @apply my-10 border-0 border-t border-white/10;
+}
+
 .prose-shell code {
   @apply rounded bg-zinc-900 px-1.5 py-0.5 text-sm text-zinc-100;
+}
+
+.prose-shell pre code {
+  @apply bg-transparent p-0;
 }
 
 .prose-shell blockquote {
@@ -86,4 +163,21 @@ body::before {
 
 .prose-shell pre {
   @apply overflow-x-auto rounded-3xl border border-white/10 bg-black/40 p-5;
+}
+
+.prose-shell img {
+  @apply my-8 rounded-3xl border border-white/10;
+}
+
+.prose-shell table {
+  @apply my-8 w-full border-collapse overflow-hidden rounded-2xl text-left text-sm;
+}
+
+.prose-shell th,
+.prose-shell td {
+  @apply border border-white/10 px-4 py-3;
+}
+
+.prose-shell th {
+  @apply bg-white/[0.04] text-white;
 }
